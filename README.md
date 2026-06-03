@@ -32,7 +32,7 @@ Raw .tex files
                   │
                   ▼
 ┌─────────────────────────────────────┐
-│  Stage 2 · Instruction Generator   │
+│  Stage 2 · Instruction Generator    │
 │                                     │
 │  template_generator.py              │
 │  gemini_generator.py                │
@@ -43,7 +43,7 @@ Raw .tex files
 │  · prose/headers → Gemini Flash     │
 │    Lite with context window         │
 │                                     │
-│  Output: (instruction, output) pairs│
+│  Output: (instruction, output) txt  │
 └─────────────────┬───────────────────┘
                   │
                   ▼
@@ -123,10 +123,13 @@ The training dataset is not included in this repo as it is derived from an unpub
 
 ## Limitations
 
-- **Model size**: A 3B parameter model has limited capacity for deep physics reasoning in a specialised domain. The fine-tuned model handles thesis-specific terminology and phrasing better than the base model, but should not be used as a physics reference.
+- **Model size**: A quantized 3B parameter model has limited capacity for deep physics reasoning in a specialised domain. The fine-tuned model handles thesis-specific terminology and phrasing better than the base model, but should not be used as a physics reference.
 - **Dataset size**: 2,224 examples is small for domain adaptation. Accuracy improves significantly with a larger or more diverse instruction set.
 - **Hardware**: Training was constrained to free Colab T4. A larger base model (7B+) would likely yield meaningfully better results.
-
+- **Equation hallucination**: Gemini Flash Lite tends to override provided context for common/generic equations (e.g. free scalar kinetic terms, standard gauge kinetic terms), generating physically plausible but thesis-inaccurate outputs. Thesis-specific equations are grounded correctly.
+- **Gemini API rate limits**: The free tier (15 req/min) is insufficient for a full thesis run. A paid API key (~$0.05 total for this corpus) **is** strongly recommended.
+- Gemini often leaves the template pairs for equations/tables empty.
+- The length filter is character-based (not tokenizer-based) pending final model selection
 ---
 
 ## Future work
