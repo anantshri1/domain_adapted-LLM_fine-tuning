@@ -27,7 +27,7 @@ Raw .tex files
 │  \input resolution, custom          │
 │  macro expansion.                   │
 │                                     │
-│  Output: block txt per chapter     │
+│   Output: block txt per chapter     │
 └─────────────────┬───────────────────┘
                   │
                   ▼
